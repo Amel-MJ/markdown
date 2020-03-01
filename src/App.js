@@ -74,8 +74,8 @@ class App extends Component {
           <label htmlFor="text"> Text</label><br />
           <input type="checkbox" id="img" name="img" checked={this.state.img} onChange={this.toggleChangeImg} />
           <label htmlFor="img"> Image</label><br />
-          <input type="checkbox" id="video" name="note" checked={this.state.video} onChange={this.toggleChangeVideo} />
-          <label htmlFor="note"> Video</label><br />
+          <input type="checkbox" id="video" name="video" checked={this.state.video} onChange={this.toggleChangeVideo} />
+          <label htmlFor="video"> Video</label><br />
 
 
         </div>
