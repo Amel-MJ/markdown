@@ -1,8 +1,11 @@
-body{
-  width: 800px;
-  margin: auto;
-   }
-.button {
+body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+}
+.buttonTop {
   border-radius: 4px;
  background-color:#008CBA;
  border: none;
@@ -16,16 +19,9 @@ body{
  cursor: pointer;
 
 }
-.textarea{
-  min-width: 400px;
-  min-height: 100px;
-}
+
 .top{
   display: flex;
   justify-content: space-between;
-  width: 400px;
   align-items: center;
-}
-.textareaNote{
-  width: 400px;
 }

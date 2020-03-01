@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import MarkdownIt from 'markdown-it'
 import MdEditor from 'react-markdown-editor-lite'
-import './App.css';
+import 'react-markdown-editor-lite/lib/index.css';
 
-
-
-//const mdParser = new MarkdownIt(/* Markdown-it options */);
+const mdParser = new MarkdownIt();
 
 class App extends Component {
   state = {
-    value: ''
+    value: '',
+    text: false,
+    img: false,
+    video: false
+
   }
 
   handleChange = (e) => {
@@ -17,55 +19,74 @@ class App extends Component {
       value: e.target.value
     });
   }
+  toggleChangeText= () => {
+    this.setState(prevState => ({
+      text: !prevState.text,
+    }));
+  }
+  toggleChangeImg = () => {
+    this.setState(prevState => ({
+      img: !prevState.img,
+    }));
+  }
 
+  toggleChangeVideo = () => {
+    this.setState(prevState => ({
+      video: !prevState.video,
+    }));
+  }
   handelCancel = () => {
     this.setState({
       value: ''
     });
   }
-   handleEditorChange=({html, text})=> {    
+  handleEditorChange = ({ html, text }, e) => {
     console.log('handleEditorChange', html, text)
+    this.setState({ value: html });
+
   }
   render() {
     return (
       <form>
-        {/* <MdEditor
-      value=""
-      renderHTML={(text) => mdParser.render(text)}
-      onChange={this.handleEditorChange}
-       />*/}
+
         <div >
           <div className='top'>
-          <h2>Content</h2>
-          <span>
-        <button className='button' value='cancel' onClick={this.handelCancel}>Cancel</button>
-        <button className='button ' value='submit' onClick={this.handelSubmit}>Save</button>
-        </span>
-         
-          </div>
-          
-          <textarea className="textarea"
+            <h2>Content</h2>
+            <span>
+              <button className='buttonTop' value='cancel' onClick={this.handelCancel}>Cancel</button>
+              <button className='buttonTop ' value='submit' onClick={this.handelSubmit}>Save</button>
+            </span>
 
-            onChange={this.handleChange}
-            defaultValue={this.state.value}
+          </div>
+
+          <MdEditor
+            value=""
+            name="value"
+            renderHTML={(text) => mdParser.render(text)}
+            onChange={this.handleEditorChange}
           />
+
         </div>
-        <div  className="checkbox">
+        <div className="checkbox">
           <h2>Type</h2>
 
-          <input type="checkbox" id="text" name="text" value="text" />
-          <label for="text"> Text</label><br />
-          <input type="checkbox" id="img" name="img" value="img" />
-          <label for="img"> Image</label><br />
-          <input type="checkbox" id="note" name="note" value="note" />
-          <label for="note"> Note</label><br />
+          <input type="checkbox" id="text" name="text"  checked={this.state.text} onClick={this.toggleChangeText} />
+          <label htmlFor="text"> Text</label><br />
+          <input type="checkbox" id="img" name="img" checked={this.state.img} onChange={this.toggleChangeImg} />
+          <label htmlFor="img"> Image</label><br />
+          <input type="checkbox" id="video" name="note" checked={this.state.video} onChange={this.toggleChangeVideo} />
+          <label htmlFor="note"> Video</label><br />
 
 
         </div>
         <div >
           <h2>Note</h2>
-          <textarea className="textareaNote"/>
-
+          <MdEditor
+            value=""
+            name="textareaNote"
+            renderHTML={(text) => mdParser.render(text)}
+            onChange={this.handleEditorChange}
+          />
         </div>
       </form>
     )
